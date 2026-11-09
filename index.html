@@ -259,3 +259,286 @@
                     <i class="fa-solid fa-headset"></i>
                 </div>
                 <div c
+
+
+            <!DOCTYPE html>
+<html lang="bn" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R888A | গেমিং ড্যাশবোর্ড</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        darkCard: '#131c2e',
+                        neonGreen: '#00e701',
+                        neonCyan: '#06b6d4',
+                        goldAccent: '#d4af37'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; padding-bottom: 75px; }
+        @media (min-width: 1024px) { body { padding-bottom: 0; } }
+        .gold-gradient { background: linear-gradient(135deg, #f59e0b, #fef08a, #d97706); }
+        .gold-text { background: linear-gradient(135deg, #f59e0b, #fef08a, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col justify-between selection:bg-goldAccent selection:text-black">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-darkCard/95 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2.5 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-10 h-10 rounded-full gold-gradient flex items-center justify-center text-slate-900 font-bold text-xl shadow-lg">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-base lg:text-lg font-bold gold-text tracking-wide">R888A প্ল্যাটফর্ম</span>
+                    <span class="text-[10px] text-slate-400 font-medium">ইনস্ট্যান্ট গেমিং জোন</span>
+                </div>
+            </div>
+            <nav class="hidden lg:flex items-center space-x-1 font-medium text-sm">
+                <button onclick="switchTab('home')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition"><i class="fa-solid fa-house mr-2 text-amber-400"></i>হোম</button>
+                <button onclick="switchTab('lobby')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition"><i class="fa-solid fa-gamepad mr-2 text-neonCyan"></i>গেম লিস্ট</button>
+                <button onclick="switchTab('offers')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition"><i class="fa-solid fa-gift mr-2 text-pink-400"></i>অফার</button>
+            </nav>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Admin Button -->
+            <button onclick="openAdminModal()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center">
+                <i class="fa-solid fa-lock mr-1.5"></i> অ্যাডমিন (998877)
+            </button>
+
+            <!-- Wallet Badge -->
+            <div class="flex items-center bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-1.5 space-x-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-neonGreen animate-pulse"></div>
+                <span class="text-xs text-slate-400 font-semibold">ব্যালেন্স:</span>
+                <span class="text-sm font-bold text-white">৳ <span id="currentBalance">0.00</span></span>
+                <button onclick="openWalletModal()" class="ml-2 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold px-2.5 py-1 rounded-lg transition">জমা দিন</button>
+            </div>
+
+            <!-- Auth Buttons -->
+            <div id="authHeaderContainer">
+                <div id="guestNav" class="flex items-center space-x-2">
+                    <button onclick="openAuthModal('login')" class="text-xs font-semibold px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition">লগইন</button>
+                    <button onclick="openAuthModal('signup')" class="text-xs font-bold px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black shadow transition">রেজিস্ট্রেশন</button>
+                </div>
+                <div id="userNav" class="hidden items-center space-x-3">
+                    <div class="flex items-center space-x-2 bg-slate-800/60 border border-slate-700 px-3 py-1.5 rounded-xl cursor-pointer" onclick="switchTab('profile')">
+                        <div class="w-7 h-7 rounded-full bg-amber-500 text-black flex items-center justify-center font-bold text-xs">
+                            <span id="userAvatarLetter">U</span>
+                        </div>
+                        <span id="usernameDisplay" class="text-xs font-semibold text-white">প্লেয়ার</span>
+                    </div>
+                    <button onclick="logout()" class="text-slate-400 hover:text-red-400 p-2 rounded-xl hover:bg-slate-800 transition" title="লগআউট"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-darkCard/95 backdrop-blur-md border-t border-slate-800 px-4 py-2 flex items-center justify-around lg:hidden shadow-2xl">
+        <button onclick="switchTab('home')" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition p-1">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-medium mt-1">হোম</span>
+        </button>
+        <button onclick="switchTab('lobby')" class="flex flex-col items-center text-slate-400 hover:text-cyan-400 transition p-1">
+            <i class="fa-solid fa-gamepad text-lg"></i>
+            <span class="text-[10px] font-medium mt-1">গেম</span>
+        </button>
+        <button onclick="openWalletModal()" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition p-1">
+            <i class="fa-solid fa-wallet text-lg"></i>
+            <span class="text-[10px] font-medium mt-1">ওয়ালেট</span>
+        </button>
+        <button onclick="switchTab('profile')" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition p-1">
+            <i class="fa-solid fa-user text-lg"></i>
+            <span class="text-[10px] font-medium mt-1">প্রোফাইল</span>
+        </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow container mx-auto px-4 lg:px-8 py-6 max-w-7xl">
+        <section id="tab-home" class="tab-content space-y-6">
+            <div class="gold-gradient p-6 rounded-2xl text-slate-950 font-bold text-center shadow-xl">
+                <h2 class="text-2xl lg:text-3xl">R888A গেমিং প্ল্যাটফর্ম</h2>
+                <p class="text-xs lg:text-sm font-medium mt-1">স্বতন্ত্র অ্যাকাউন্ট তৈরি করুন এবং তাৎক্ষণিকভাবে খেলা শুরু করুন।</p>
+            </div>
+        </section>
+
+        <section id="tab-lobby" class="tab-content hidden space-y-6">
+            <h2 class="text-xl font-bold text-white mb-4">গেম লাউঞ্জ</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-darkCard border border-slate-800 p-4 rounded-xl text-center">
+                    <i class="fa-solid fa-dice text-3xl text-amber-400 mb-2"></i>
+                    <h3 class="font-bold text-sm">লাকি স্পিন</h3>
+                </div>
+                <div class="bg-darkCard border border-slate-800 p-4 rounded-xl text-center">
+                    <i class="fa-solid fa-fire text-3xl text-neonCyan mb-2"></i>
+                    <h3 class="font-bold text-sm">ক্রাশ গেম</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-offers" class="tab-content hidden space-y-6">
+            <h2 class="text-xl font-bold text-white mb-4">বোনাস ও অফার</h2>
+            <div class="bg-darkCard border border-slate-800 p-5 rounded-xl">
+                <p class="text-xs text-slate-300">নিবন্ধন করে প্রথম ডিপোজিটে আকর্ষণীয় বোনাস উপভোগ করুন।</p>
+            </div>
+        </section>
+
+        <section id="tab-profile" class="tab-content hidden space-y-6 max-w-md mx-auto">
+            <div class="bg-darkCard border border-slate-800 p-6 rounded-2xl text-center space-y-4">
+                <div class="w-16 h-16 rounded-full bg-amber-500 text-black text-2xl font-bold flex items-center justify-center mx-auto" id="profileAvatar">U</div>
+                <h3 class="text-lg font-bold text-white" id="profileName">প্লেয়ার</h3>
+                <p class="text-xs text-slate-400" id="profilePhone">-</p>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-slate-400">ব্যালেন্স:</span>
+                    <div class="text-xl font-bold text-neonGreen">৳ <span id="profileBalance">0.00</span></div>
+                </div>
+                <button onclick="logout()" class="w-full bg-red-500/20 text-red-400 hover:bg-red-500/30 font-bold py-2.5 rounded-xl text-xs transition">লগআউট</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-darkCard border border-slate-700 rounded-2xl w-full max-w-sm p-6 space-y-4">
+            <h2 class="text-xl font-bold gold-text text-center">অ্যাডমিন প্যানেল</h2>
+            <input type="password" id="adminPinInput" placeholder="সিক্রেট পিন (998877)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white">
+            <div class="flex gap-2">
+                <button onclick="verifyAdmin()" class="flex-1 gold-gradient text-slate-950 font-bold py-3 rounded-xl text-xs">প্রবেশ</button>
+                <button onclick="closeAdminModal()" class="bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs">বাতিল</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wallet Modal -->
+    <div id="walletModal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-darkCard border border-slate-700 rounded-2xl w-full max-w-sm p-6 space-y-4">
+            <h2 class="text-xl font-bold text-white text-center">ওয়ালেট ডিপোজিট</h2>
+            <input type="number" id="depositAmount" placeholder="পরিমাণ (টাকা)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white">
+            <button onclick="processDeposit()" class="w-full gold-gradient text-slate-950 font-bold py-3 rounded-xl text-xs">নিশ্চিত করুন</button>
+            <button onclick="closeWalletModal()" class="w-full bg-slate-800 text-slate-300 py-2 rounded-xl text-xs">বন্ধ</button>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-darkCard border border-slate-700 rounded-2xl w-full max-w-sm p-6 space-y-4">
+            <h2 id="authModalTitle" class="text-xl font-bold text-white text-center">লগইন</h2>
+            <input type="text" id="authNameInput" placeholder="আপনার নাম" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white">
+            <input type="text" id="authPhoneInput" placeholder="মোবাইল নম্বর" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white">
+            <input type="password" id="authPassInput" placeholder="পাসওয়ার্ড" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white">
+            <button onclick="submitAuth()" class="w-full gold-gradient text-slate-950 font-bold py-3 rounded-xl text-xs">সাবমিট</button>
+            <button onclick="closeAuthModal()" class="w-full bg-slate-800 text-slate-300 py-2 rounded-xl text-xs">বাতিল</button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = JSON.parse(localStorage.getItem('r888_user')) || null;
+
+        function updateUI() {
+            if(currentUser) {
+                document.getElementById('guestNav').classList.add('hidden');
+                document.getElementById('userNav').classList.remove('hidden');
+                document.getElementById('usernameDisplay').innerText = currentUser.name;
+                document.getElementById('userAvatarLetter').innerText = currentUser.name.charAt(0);
+                document.getElementById('currentBalance').innerText = currentUser.balance.toFixed(2);
+                document.getElementById('profileName').innerText = currentUser.name;
+                document.getElementById('profilePhone').innerText = currentUser.phone;
+                document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0);
+                document.getElementById('profileBalance').innerText = currentUser.balance.toFixed(2);
+            } else {
+                document.getElementById('guestNav').classList.remove('hidden');
+                document.getElementById('userNav').classList.add('hidden');
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('tab-' + tabId);
+            if(target) target.classList.remove('hidden');
+        }
+
+        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+        function verifyAdmin() {
+            const pin = document.getElementById('adminPinInput').value;
+            if(pin === '998877') {
+                alert('অ্যাডমিন সফলভাবে অনুমোদিত!');
+                closeAdminModal();
+            } else {
+                alert('ভুল পিন (সঠিক পিন: 998877)');
+            }
+        }
+
+        function openWalletModal() { document.getElementById('walletModal').classList.remove('hidden'); }
+        function closeWalletModal() { document.getElementById('walletModal').classList.add('hidden'); }
+        function processDeposit() {
+            const amt = parseFloat(document.getElementById('depositAmount').value);
+            if(!amt || amt <= 0) { alert('সঠিক পরিমাণ লিখুন।'); return; }
+            if(!currentUser) { alert('প্রথমে লগইন করুন।'); openAuthModal('login'); closeWalletModal(); return; }
+            currentUser.balance += amt;
+            localStorage.setItem('r888_user', JSON.stringify(currentUser));
+            updateUI();
+            alert('৳' + amt + ' সফলভাবে জমা হয়েছে!');
+            closeWalletModal();
+        }
+
+        let authMode = 'login';
+        function openAuthModal(type) {
+            authMode = type;
+            document.getElementById('authModalTitle').innerText = type === 'login' ? 'অ্যাকাউন্ট লগইন' : 'নতুন রেজিস্ট্রেশন';
+            document.getElementById('authNameInput').style.display = type === 'login' ? 'none' : 'block';
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
+        
+        function submitAuth() {
+            const phone = document.getElementById('authPhoneInput').value;
+            const pass = document.getElementById('authPassInput').value;
+            const name = document.getElementById('authNameInput').value;
+            
+            if(!phone || !pass) { alert('নম্বর এবং পাসওয়ার্ড দিন।'); return; }
+            
+            if(authMode === 'signup') {
+                if(!name) { alert('নাম দিন।'); return; }
+                currentUser = { name: name, phone: phone, balance: 0.00 };
+                localStorage.setItem('r888_user', JSON.stringify(currentUser));
+                alert('রেজিস্ট্রেশন সফল হয়েছে!');
+            } else {
+                currentUser = { name: name || 'প্লেয়ার', phone: phone, balance: currentUser ? currentUser.balance : 0.00 };
+                localStorage.setItem('r888_user', JSON.stringify(currentUser));
+                alert('লগইন সফল হয়েছে!');
+            }
+            updateUI();
+            closeAuthModal();
+            switchTab('home');
+        }
+
+        function logout() {
+            localStorage.removeItem('r888_user');
+            currentUser = null;
+            updateUI();
+            alert('লগআউট সম্পন্ন হয়েছে।');
+            switchTab('home');
+        }
+
+        window.onload = updateUI;
+    </script>
+</body>
+</html>
