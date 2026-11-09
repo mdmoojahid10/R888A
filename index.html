@@ -1,92 +1,261 @@
+```html
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R888A - Official Dashboard</title>
+    <title>R888A .com | অনলাইন ক্যাসিনো প্ল্যাটফর্ম</title>
+    <!-- PWA Manifest Meta -->
+    <link rel="manifest" href='data:application/manifest+json,{
+      "name": "R888A .com Casino",
+      "short_name": "R888A",
+      "start_url": ".",
+      "display": "standalone",
+      "background_color": "#0b0f19",
+      "theme_color": "#00e701",
+      "icons": [
+        {
+          "src": "https://placehold.co/192x192/d4af37/000000?text=R888A",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "https://placehold.co/512x512/d4af37/000000?text=R888A",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }'>
+    <meta name="theme-color" content="#0b0f19">
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        darkCard: '#131c2e',
+                        darkCardHover: '#1e293b',
+                        neonGreen: '#00e701',
+                        neonCyan: '#06b6d4',
+                        neonPurple: '#a855f7',
+                        goldAccent: '#d4af37'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .gold-gradient { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); }
-        .gold-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { font-family: 'Inter', sans-serif; padding-bottom: 75px; }
+        @media (min-width: 1024px) { body { padding-bottom: 0; } }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0b0f19; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="bg-slate-900 border-b border-amber-500/30 p-4 flex justify-between items-center sticky top-0 z-50">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 rounded-full gold-gradient flex items-center justify-center font-bold text-slate-900 text-xl shadow-lg">R</div>
-            <span class="text-xl font-bold gold-text">R888A.com</span>
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col justify-between custom-scrollbar selection:bg-goldAccent selection:text-black">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-darkCard/95 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <button id="mobileMenuBtn" class="lg:hidden text-slate-400 hover:text-white text-xl focus:outline-none" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="flex items-center space-x-2.5 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-yellow-500 to-amber-300 flex items-center justify-center text-black font-black text-lg shadow-lg shadow-amber-500/20 border border-amber-300">
+                    R
+                </div>
+                <div class="flex flex-col">
+                    <span id="platformBrandName" class="text-lg font-black tracking-wider bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">R888A</span>
+                    <span class="text-[9px] bg-amber-500 text-black font-bold px-1.5 py-0.5 rounded uppercase tracking-widest text-center shadow">.com</span>
+                </div>
+            </div>
+            <nav class="hidden lg:flex items-center space-x-1 font-medium text-sm">
+                <button onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 transition active" data-tab="home"><i class="fa-solid fa-house mr-2 text-amber-400"></i>হোম</button>
+                <button onclick="switchTab('lobby')" class="nav-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 transition" data-tab="lobby"><i class="fa-solid fa-gamepad mr-2 text-neonCyan"></i>সকল গেম</button>
+                <button onclick="switchTab('offers')" class="nav-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 transition" data-tab="offers"><i class="fa-solid fa-gift mr-2 text-pink-400"></i>অফার</button>
+                <button onclick="switchTab('support')" class="nav-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 transition" data-tab="support"><i class="fa-solid fa-headset mr-2 text-emerald-400"></i>হেল্প কেয়ার</button>
+            </nav>
         </div>
-        <div class="flex items-center gap-3">
-            <button onclick="openAdminModal()" class="bg-slate-800 border border-amber-500/50 p-2 rounded-lg text-amber-400 hover:bg-slate-700 transition"><i class="fa-solid fa-lock"></i></button>
+
+        <div class="flex items-center space-x-3">
+            <!-- PWA Install Button -->
+            <button id="pwaInstallBtn" onclick="installPWAApp()" class="hidden bg-gradient-to-r from-amber-600 to-yellow-500 text-black font-extrabold text-xs px-3.5 py-2 rounded-xl shadow-lg animate-pulse items-center">
+                <i class="fa-solid fa-download mr-1.5"></i> ইনস্টল করুন
+            </button>
+
+            <!-- Admin Button (Secret PIN 998877) -->
+            <button onclick="openAdminPinModal()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center">
+                <i class="fa-solid fa-shield-halved mr-1.5"></i> অ্যাডমিন
+            </button>
+
+            <!-- Wallet Badge -->
+            <div id="walletBadge" class="hidden sm:flex items-center bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-1.5 space-x-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-neonGreen animate-pulse"></div>
+                <span class="text-xs text-slate-400 font-semibold">ব্যালেন্স:</span>
+                <span id="userBalanceDisplay" class="text-sm font-bold text-white">৳ 0.00</span>
+                <button onclick="openWalletModal()" class="ml-2 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold px-2.5 py-1 rounded-lg transition">জমা দিন</button>
+            </div>
+
+            <!-- Auth Buttons -->
+            <div id="authHeaderContainer">
+                <div id="guestNav" class="flex items-center space-x-2">
+                    <button onclick="openAuthModal('login')" class="text-sm font-semibold px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition">লগইন</button>
+                    <button onclick="openAuthModal('signup')" class="text-sm font-bold px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black shadow-lg transition">রেজিস্ট্রেশন</button>
+                </div>
+                <div id="userNav" class="hidden items-center space-x-3">
+                    <div class="flex items-center space-x-2 bg-slate-800/60 border border-slate-700 px-3 py-1.5 rounded-xl cursor-pointer" onclick="openProfileTab()">
+                        <div id="userAvatarContainer" class="w-7 h-7 rounded-full bg-amber-500 text-black flex items-center justify-center font-bold text-xs overflow-hidden">
+                            <span id="userAvatarLetter">U</span>
+                        </div>
+                        <span id="usernameDisplay" class="text-xs font-semibold text-white">প্লেয়ার</span>
+                    </div>
+                    <button onclick="logout()" class="text-slate-400 hover:text-red-400 p-2 rounded-xl hover:bg-slate-800 transition" title="লগআউট"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow p-4 max-w-md mx-auto w-full pb-24">
-        <div class="gold-gradient p-4 rounded-xl text-slate-950 font-bold text-center mb-6 shadow-xl">
-            <h2 class="text-2xl">স্বাগতম R888A-তে!</h2>
-            <p class="text-sm font-medium mt-1">আপনার বিশ্বস্ত গেমিং ও ডিজিটাল প্ল্যাটফর্ম</p>
-        </div>
+    <!-- Mobile Bottom Navigation Bar: strictly ordered as Home ➔ Offers ➔ Deposit ➔ Profile -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-darkCard/95 backdrop-blur-md border-t border-slate-800 px-4 py-2.5 flex items-center justify-around lg:hidden shadow-2xl">
+        <button onclick="switchTab('home')" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition p-1" data-mobtab="home">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-semibold mt-1">হোম</span>
+        </button>
+        <button onclick="switchTab('offers')" class="flex flex-col items-center text-slate-400 hover:text-pink-400 transition p-1" data-mobtab="offers">
+            <i class="fa-solid fa-gift text-lg"></i>
+            <span class="text-[10px] font-semibold mt-1">অফার</span>
+        </button>
+        <button onclick="openWalletModal()" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition p-1" data-mobtab="deposit">
+            <i class="fa-solid fa-wallet text-lg"></i>
+            <span class="text-[10px] font-semibold mt-1">জমা</span>
+        </button>
+        <button onclick="openProfileTab()" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition p-1" data-mobtab="profile">
+            <i class="fa-solid fa-user-circle text-lg"></i>
+            <span class="text-[10px] font-semibold mt-1">প্রোফাইল</span>
+        </button>
+    </nav>
 
-        <!-- Support Links Section -->
-        <div class="grid grid-cols-3 gap-3 mb-6">
-            <a href="#" id="helpCareLink" class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center hover:border-amber-500 transition">
-                <i class="fa-solid fa-headset text-amber-400 text-xl mb-1"></i>
-                <div class="text-xs font-semibold">হেল্প কেয়ার</div>
-            </a>
-            <a href="#" id="messengerLink" class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center hover:border-amber-500 transition">
-                <i class="fa-brands fa-facebook-messenger text-blue-400 text-xl mb-1"></i>
-                <div class="text-xs font-semibold">মেসেঞ্জার</div>
-            </a>
-            <a href="#" id="facebookLink" class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center hover:border-amber-500 transition">
-                <i class="fa-brands fa-facebook text-blue-500 text-xl mb-1"></i>
-                <div class="text-xs font-semibold">ফেসবুক</div>
-            </a>
-        </div>
-
-        <div class="bg-slate-800/80 border border-slate-700 p-5 rounded-xl text-center">
-            <h3 class="text-lg font-bold text-amber-400 mb-2">স্ট্যাটাস ও ব্যালেন্স</h3>
-            <p class="text-sm text-slate-300 mb-4">আপনার বর্তমান ব্যালেন্স চেক করতে এবং গেম খেলতে লগইন বা রেজিস্ট্রেশন করুন।</p>
-            <div class="text-2xl font-bold text-white mb-2">৳ <span id="userBalance">0.00</span></div>
-        </div>
-    </main>
-
-    <!-- Admin Modal (PIN: 998877) -->
-    <div id="adminModal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-amber-500/50 p-6 rounded-2xl w-full max-w-sm">
-            <h3 class="text-xl font-bold gold-text mb-4 text-center">অ্যাডমিন প্যানেল লগইন</h3>
-            <input type="password" id="adminPinInput" placeholder="সিক্রেট পিন (998877)" class="w-full bg-slate-800 border border-slate-700 p-3 rounded-xl text-white mb-4 focus:outline-none focus:border-amber-500">
-            <div class="flex gap-2">
-                <button onclick="verifyAdmin()" class="flex-1 gold-gradient text-slate-950 font-bold py-3 rounded-xl">প্রবেশ করুন</button>
-                <button onclick="closeAdminModal()" class="bg-slate-800 text-slate-300 px-4 py-3 rounded-xl">বাতিল</button>
+    <!-- Mobile Sidebar overlay -->
+    <div id="mobileSidebar" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden lg:hidden">
+        <div class="w-72 bg-darkCard h-full p-5 flex flex-col justify-between border-r border-slate-800 shadow-2xl">
+            <div>
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-black font-bold">R</div>
+                        <span class="text-lg font-bold tracking-wider text-white">R888A<span class="text-amber-400">.com</span></span>
+                    </div>
+                    <button onclick="toggleMobileMenu()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="space-y-2">
+                    <button onclick="switchTab('home'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 font-medium flex items-center"><i class="fa-solid fa-house mr-3 text-amber-400"></i>হোম</button>
+                    <button onclick="switchTab('lobby'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 font-medium flex items-center"><i class="fa-solid fa-gamepad mr-3 text-neonCyan"></i>সকল গেম</button>
+                    <button onclick="switchTab('offers'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 font-medium flex items-center"><i class="fa-solid fa-gift mr-3 text-pink-400"></i>অফার ও ডেইলি বোনাস</button>
+                    <button onclick="switchTab('support'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 font-medium flex items-center"><i class="fa-solid fa-headset mr-3 text-emerald-400"></i>হেল্প কেয়ার ও সাপোর্ট</button>
+                    <button onclick="openWalletModal(); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-300 font-medium flex items-center"><i class="fa-solid fa-wallet mr-3 text-amber-500"></i>বিকাশ / নগদ ওয়ালেট</button>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-slate-800 text-xs text-slate-500 text-center">
+                R888A .com Casino PWA &copy; 2026
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around p-3 z-40 max-w-md mx-auto">
-        <a href="#" class="text-amber-400 flex flex-col items-center text-xs"><i class="fa-solid fa-house text-lg"></i>হোম</a>
-        <a href="#" class="text-slate-400 flex flex-col items-center text-xs"><i class="fa-solid fa-gift text-lg"></i>অফার</a>
-        <a href="#" class="text-slate-400 flex flex-col items-center text-xs"><i class="fa-solid fa-wallet text-lg"></i>ডিপোজিট</a>
-        <a href="#" class="text-slate-400 flex flex-col items-center text-xs"><i class="fa-solid fa-user text-lg"></i>প্রোফাইল</a>
-    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-grow container mx-auto px-4 lg:px-8 py-6 max-w-7xl">
 
-    <script>
-        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
-        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
-        function verifyAdmin() {
-            const pin = document.getElementById('adminPinInput').value;
-            if(pin === '998877') {
-                alert('সফলভাবে অ্যাডমিন প্যানেলে প্রবেশ করেছেন!');
-                closeAdminModal();
-            } else {
-                alert('ভুল পিন! সঠিক পিন দিন (998877)');
-            }
-        }
-    </script>
-</body>
-</html>
+        <!-- Top Banner with Download Action -->
+        <div class="mb-6 bg-gradient-to-r from-amber-950 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between shadow-lg">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-bullhorn"></i></div>
+                <div>
+                    <span class="text-xs font-bold text-amber-400 block">R888A .com অফিশিয়াল অ্যাপ</span>
+                    <span id="announcementText" class="text-xs text-slate-200">আমাদের অ্যাপ ডাউনলোড করুন! জমা ১০০–২৫০০ টাকা, উত্তোলন ১০০–২৫,০০০ টাকা।</span>
+                </div>
+            </div>
+            <button onclick="installPWAApp()" class="bg-amber-500 hover:bg-amber-400 text-black text-xs font-extrabold px-3.5 py-2 rounded-xl shadow transition whitespace-nowrap">
+                ইনস্টল করুন
+            </button>
+        </div>
+
+        <!-- TAB 1: HOME (100 Games Categorized front and center immediately below banner) -->
+        <section id="tab-home" class="tab-content space-y-6">
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950/60 to-slate-900 border border-slate-800 p-8 lg:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-xl">
+                    <span class="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30">সুরক্ষিত ওয়ালেট ও তাৎক্ষণিক পেমেন্ট</span>
+                    <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-white">R888A .com ক্যাসিনো লাউঞ্জ</h1>
+                    <p class="text-slate-300 text-xs lg:text-sm">১০০টি প্রিমিয়াম গেম এক জায়গায়। ০ বিডিটি ব্যালেন্স দিয়ে শুরু করুন এবং বিকাশ ও নগদের মাধ্যমে নিরাপদ লেনদেন করুন।</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="openWalletModal()" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-lg flex items-center"><i class="fa-solid fa-wallet mr-2"></i>টাকা জমা দিন</button>
+                        <button onclick="switchTab('lobby')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition border border-slate-700 flex items-center"><i class="fa-solid fa-gamepad mr-2 text-neonCyan"></i>সকল গেম দেখুন</button>
+                    </div>
+                </div>
+                <div class="w-32 h-32 lg:w-40 lg:h-40 rounded-3xl bg-gradient-to-tr from-amber-600 via-yellow-400 to-amber-300 flex items-center justify-center text-black font-black text-6xl shadow-2xl shadow-amber-500/30 border-2 border-amber-200">
+                    R888
+                </div>
+            </div>
+
+            <!-- Category Tabs (সেরা, Jili, PG, Spribe, FaChai, Slots, Crash, Table) -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 custom-scrollbar">
+                <button onclick="filterCategory('all')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black whitespace-nowrap transition" data-cat="all">🔥 সেরা</button>
+                <button onclick="filterCategory('jili')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="jili">Jili</button>
+                <button onclick="filterCategory('pg')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="pg">PG Soft</button>
+                <button onclick="filterCategory('spribe')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="spribe">Spribe</button>
+                <button onclick="filterCategory('fachai')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="fachai">FaChai</button>
+                <button onclick="filterCategory('slots')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="slots">Slots</button>
+                <button onclick="filterCategory('crash')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="crash">Crash</button>
+                <button onclick="filterCategory('table')" class="cat-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition" data-cat="table">Table</button>
+            </div>
+
+            <!-- 100 Games Grid -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg lg:text-xl font-black text-white flex items-center"><i class="fa-solid fa-gamepad text-amber-400 mr-2"></i>গেম ক্যাটালগ (১০০টি গেম)</h2>
+                    <span id="gameCountBadge" class="text-xs text-amber-400 font-bold bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-500/20">১০০ গেম উপলব্ধ</span>
+                </div>
+                <div id="homeGameGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- TAB 2: LOBBY (All 100 Games with search) -->
+        <section id="tab-lobby" class="tab-content hidden space-y-6">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-white">সকল গেম ক্যাটালগ (১০০টি)</h2>
+                    <p class="text-xs text-slate-400">আপনার পছন্দের গেমটি দ্রুত খুঁজে নিন।</p>
+                </div>
+                <input type="text" id="gameSearchInput" placeholder="গেম খুঁজুন..." onkeyup="filterLobbyGames()" class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400 w-full md:w-64">
+            </div>
+            <div id="lobbyGameGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+        </section>
+
+        <!-- TAB 3: OFFERS -->
+        <section id="tab-offers" class="tab-content hidden space-y-8">
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-pink-950 via-slate-950 to-indigo-950 border border-pink-500/30 p-8 shadow-2xl max-w-2xl mx-auto">
+                <div class="space-y-4 text-center">
+                    <span class="bg-pink-500/25 text-pink-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-pink-500/30">ডেইলি বোনাস</span>
+                    <h2 class="text-2xl lg:text-3xl font-black text-white">প্রতিদিনের ফ্রি বোনাস ক্লেইম করুন</h2>
+                    <p class="text-slate-300 text-xs">অ্যাডমিন প্রদত্ত গোপন কোডটি এখানে দিয়ে প্রতিদিন ফ্রি বোনাস ব্যালেন্স নিন।</p>
+                    <div class="space-y-3 pt-2 max-w-sm mx-auto">
+                        <input type="text" id="userDailyCodeInput" placeholder="গোপন কোড দিন (যেমন: 0001)" class="w-full bg-black border border-slate-700 rounded-xl px-4 py-3 text-sm text-pink-400 font-mono text-center focus:outline-none focus:border-pink-500">
+                        <button onclick="claimDailyBonus()" class="w-full bg-pink-500 hover:bg-pink-400 text-black font-extrabold py-3 rounded-xl text-xs transition shadow-lg">
+                            বোনাস ক্লেইম করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: SUPPORT & HELP CARE (Messenger, Facebook, Help Care) -->
+        <section id="tab-support" class="tab-content hidden space-y-8 max-w-2xl mx-auto">
+            <div class="rounded-3xl bg-darkCard border border-slate-800 p-8 space-y-6 shadow-2xl text-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-bold mx-auto border border-emerald-500/30">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div c
