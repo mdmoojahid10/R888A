@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R888A - Official Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .gold-gradient { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); }
+        .gold-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-slate-900 border-b border-amber-500/30 p-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 rounded-full gold-gradient flex items-center justify-center font-bold text-slate-900 text-xl shadow-lg">R</div>
+            <span class="text-xl font-bold gold-text">R888A.com</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="openAdminModal()" class="bg-slate-800 border border-amber-500/50 p-2 rounded-lg text-amber-400 hover:bg-slate-700 transition"><i class="fa-solid fa-lock"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 max-w-md mx-auto w-full pb-24">
+        <div class="gold-gradient p-4 rounded-xl text-slate-950 font-bold text-center mb-6 shadow-xl">
+            <h2 class="text-2xl">স্বাগতম R888A-তে!</h2>
+            <p class="text-sm font-medium mt-1">আপনার বিশ্বস্ত গেমিং ও ডিজিটাল প্ল্যাটফর্ম</p>
+        </div>
+
+        <!-- Support Links Section -->
+        <div class="grid grid-cols-3 gap-3 mb-6">
+            <a href="#" id="helpCareLink" class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center hover:border-amber-500 transition">
+                <i class="fa-solid fa-headset text-amber-400 text-xl mb-1"></i>
+                <div class="text-xs font-semibold">হেল্প কেয়ার</div>
+            </a>
+            <a href="#" id="messengerLink" class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center hover:border-amber-500 transition">
+                <i class="fa-brands fa-facebook-messenger text-blue-400 text-xl mb-1"></i>
+                <div class="text-xs font-semibold">মেসেঞ্জার</div>
+            </a>
+            <a href="#" id="facebookLink" class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center hover:border-amber-500 transition">
+                <i class="fa-brands fa-facebook text-blue-500 text-xl mb-1"></i>
+                <div class="text-xs font-semibold">ফেসবুক</div>
+            </a>
+        </div>
+
+        <div class="bg-slate-800/80 border border-slate-700 p-5 rounded-xl text-center">
+            <h3 class="text-lg font-bold text-amber-400 mb-2">স্ট্যাটাস ও ব্যালেন্স</h3>
+            <p class="text-sm text-slate-300 mb-4">আপনার বর্তমান ব্যালেন্স চেক করতে এবং গেম খেলতে লগইন বা রেজিস্ট্রেশন করুন।</p>
+            <div class="text-2xl font-bold text-white mb-2">৳ <span id="userBalance">0.00</span></div>
+        </div>
+    </main>
+
+    <!-- Admin Modal (PIN: 998877) -->
+    <div id="adminModal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-amber-500/50 p-6 rounded-2xl w-full max-w-sm">
+            <h3 class="text-xl font-bold gold-text mb-4 text-center">অ্যাডমিন প্যানেল লগইন</h3>
+            <input type="password" id="adminPinInput" placeholder="সিক্রেট পিন (998877)" class="w-full bg-slate-800 border border-slate-700 p-3 rounded-xl text-white mb-4 focus:outline-none focus:border-amber-500">
+            <div class="flex gap-2">
+                <button onclick="verifyAdmin()" class="flex-1 gold-gradient text-slate-950 font-bold py-3 rounded-xl">প্রবেশ করুন</button>
+                <button onclick="closeAdminModal()" class="bg-slate-800 text-slate-300 px-4 py-3 rounded-xl">বাতিল</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around p-3 z-40 max-w-md mx-auto">
+        <a href="#" class="text-amber-400 flex flex-col items-center text-xs"><i class="fa-solid fa-house text-lg"></i>হোম</a>
+        <a href="#" class="text-slate-400 flex flex-col items-center text-xs"><i class="fa-solid fa-gift text-lg"></i>অফার</a>
+        <a href="#" class="text-slate-400 flex flex-col items-center text-xs"><i class="fa-solid fa-wallet text-lg"></i>ডিপোজিট</a>
+        <a href="#" class="text-slate-400 flex flex-col items-center text-xs"><i class="fa-solid fa-user text-lg"></i>প্রোফাইল</a>
+    </nav>
+
+    <script>
+        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+        function verifyAdmin() {
+            const pin = document.getElementById('adminPinInput').value;
+            if(pin === '998877') {
+                alert('সফলভাবে অ্যাডমিন প্যানেলে প্রবেশ করেছেন!');
+                closeAdminModal();
+            } else {
+                alert('ভুল পিন! সঠিক পিন দিন (998877)');
+            }
+        }
+    </script>
+</body>
+</html>
